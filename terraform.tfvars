@@ -3,8 +3,8 @@ aws_region = "us-east-1"
 vpc_id = "vpc-xxxxxxxx"
 
 subnet_ids = [
-  "subnet-111111111",
-  "subnet-222222222"
+  "subnet-0c5e176725ad7d1dc",
+  "subnet-0ff0047ad217eba33"
 ]
 
 subnet_group_name = "app-rds-subnet-group"

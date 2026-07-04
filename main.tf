@@ -1,14 +1,14 @@
 
 #subnet group
 resource "aws_db_subnet_group" "rds_subnet_group" {
-  name        = "app-rds-subnet-group"
+  name        = var.subnet_group_name
   description = "Subnet group for RDS instance"
-  subnet_ids  = ["subnet-0ff0047ad217eba33", "subnet-0c5e176725ad7d1dc"]
+  subnet_ids  = var.subnet_ids
   tags        = var.tags
 }
 #security group
 resource "aws_security_group" "rds_security_group" {
-  name        = "app-rds-security-group"
+  name        = var.security_group_name
   description = "Security group for RDS instance"
   vpc_id      = var.vpc_id
 
