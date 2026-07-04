@@ -1,6 +1,6 @@
 aws_region = "us-east-1"
 
-vpc_id = "vpc-xxxxxxxx"
+vpc_id = "vpc-0c30377a5dce3c8d1"
 
 subnet_ids = [
   "subnet-0c5e176725ad7d1dc",
@@ -24,10 +24,6 @@ engine_version = "8.0"
 instance_class = "db.t3.micro"
 
 db_name = "appdb"
-
-username = "admin"
-
-password = "Admin1234!"
 
 parameter_group_name = "default.mysql8.0"
 

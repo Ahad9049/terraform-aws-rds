@@ -6,6 +6,22 @@ resource "aws_db_subnet_group" "rds_subnet_group" {
   subnet_ids  = var.subnet_ids
   tags        = var.tags
 }
+#fecthing secrets form aws secrets manager
+data "aws_secretsmanager_secret" "rds_secret" {
+  name = "dev/rds/mysql"
+}
+
+data "aws_secretsmanager_secret_version" "rds_secret_version" {
+  secret_id = data.aws_secretsmanager_secret.rds_secret.id
+}
+
+#decode json secret
+locals {
+  rds_secret = jsondecode(
+    data.aws_secretsmanager_secret_version.rds_secret_version.secret_string
+  )
+}
+
 #security group
 resource "aws_security_group" "rds_security_group" {
   name        = var.security_group_name
@@ -35,8 +51,9 @@ resource "aws_db_instance" "rds_instance" {
   engine_version         = var.engine_version
   instance_class         = var.instance_class
   db_name                = var.db_name
-  username               = var.username
-  password               = var.password
+  username               = local.rds_secret.username
+  password               = local.rds_secret.password
+  port                   = var.db_port
   parameter_group_name   = var.parameter_group_name
   db_subnet_group_name   = aws_db_subnet_group.rds_subnet_group.name
   vpc_security_group_ids = [aws_security_group.rds_security_group.id]
